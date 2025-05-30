@@ -1,0 +1,6 @@
+@api_safezone_cs_HostAddress = http://localhost:5199
+
+GET {{api_safezone_cs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
