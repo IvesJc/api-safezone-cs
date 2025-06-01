@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_safezone_cs.Controllers;
 
-[Route("api/vitima")]
+[Route("api/[controller]")]
 [ApiController]
 public class VitimaController(IVitimaService vitimaService) : ControllerBase
 {

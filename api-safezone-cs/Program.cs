@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using api_safezone_cs.Data.AppData;
-using api_safezone_cs.Repositories;
 using api_safezone_cs.Repositories.Interfaces;
+using api_safezone_cs.Repositories.Repository;
 using api_safezone_cs.Services.Interfaces;
 using api_safezone_cs.Services.Service;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +21,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(opts =>
     {
         opts.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
 
 builder.Services.AddSwaggerGen(options =>
@@ -59,5 +60,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.MapControllers();
 
 app.Run();

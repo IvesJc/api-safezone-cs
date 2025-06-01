@@ -5,7 +5,7 @@ using api_safezone_cs.Mapper;
 using api_safezone_cs.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace api_safezone_cs.Repositories;
+namespace api_safezone_cs.Repositories.Repository;
 
 public class AlertaRepository(AppDbContext dbContext) : IAlertaRepository
 {

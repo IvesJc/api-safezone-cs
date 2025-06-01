@@ -10,7 +10,7 @@ public class Ocorrencia
     public int Id { get; set; }
     
     [Required]
-    public string Local { get; set; } = null!;
+    public required Localizacao Localizacao { get; set; }
     
     public TipoOcorrencia Tipo { get; set; }
     
@@ -18,7 +18,6 @@ public class Ocorrencia
     public Prioridade Prioridade { get; set; }
     public DateTime DataHora { get; set; } = DateTime.UtcNow;
 
-    [ForeignKey("Vitima")]
     public ICollection<Vitima> Vitimas { get; set; } = new List<Vitima>();
 }
 

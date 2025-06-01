@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using api_safezone_cs.Domain.Enums;
 
 namespace api_safezone_cs.Domain.Entities;
@@ -20,7 +21,8 @@ public class Vitima
     [Required]
     public required Localizacao Localizacao { get; set; } 
     
-    [ForeignKey("Ocorrencia")]
     public int OcorrenciaId { get; set; }
+    [ForeignKey("OcorrenciaId")]
+    [JsonIgnore]
     public Ocorrencia Ocorrencia { get; set; } = null!;
 }

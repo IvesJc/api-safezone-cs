@@ -8,12 +8,11 @@ public static class OcorrenciaMapper
     public static OcorrenciaRequest ToOcorrenciaRequest(this Ocorrencia ocorrencia)
     {
         return new OcorrenciaRequest(
-            Local: ocorrencia.Local,
+            Localizacao: ocorrencia.Localizacao,
             Tipo: ocorrencia.Tipo,
             Status: ocorrencia.Status,
             Prioridade: ocorrencia.Prioridade,
-            DataHora: ocorrencia.DataHora,
-            Vitimas: ocorrencia.Vitimas.Select(v => v.ToVitimaRequest()).ToList()
+            DataHora: ocorrencia.DataHora
         );
     }
 
@@ -21,7 +20,7 @@ public static class OcorrenciaMapper
     {
         return new OcorrenciaResponse(
             Id: ocorrencia.Id,
-            Local: ocorrencia.Local,
+            Localizacao: ocorrencia.Localizacao,
             Tipo: ocorrencia.Tipo,
             Status: ocorrencia.Status,
             Prioridade: ocorrencia.Prioridade,
@@ -36,10 +35,9 @@ public static class OcorrenciaMapper
         {
             Prioridade = ocorrenciaRequest.Prioridade,
             DataHora = ocorrenciaRequest.DataHora,
-            Local = ocorrenciaRequest.Local,
+            Localizacao = ocorrenciaRequest.Localizacao,
             Status = ocorrenciaRequest.Status,
             Tipo = ocorrenciaRequest.Tipo,
-            Vitimas = ocorrenciaRequest.Vitimas.Select(v => v.ToVitimaFromRequest()).ToList()
         };
     }
     public static Ocorrencia ToOcorrenciaFromResponse(this OcorrenciaResponse ocorrenciaResponse)
@@ -49,7 +47,7 @@ public static class OcorrenciaMapper
             Id = ocorrenciaResponse.Id,
             Prioridade = ocorrenciaResponse.Prioridade,
             DataHora = ocorrenciaResponse.DataHora,
-            Local = ocorrenciaResponse.Local,
+            Localizacao = ocorrenciaResponse.Localizacao,
             Status = ocorrenciaResponse.Status,
             Tipo = ocorrenciaResponse.Tipo,
             Vitimas = ocorrenciaResponse.Vitimas.Select(v => v.ToVitimaFromResponse()).ToList()

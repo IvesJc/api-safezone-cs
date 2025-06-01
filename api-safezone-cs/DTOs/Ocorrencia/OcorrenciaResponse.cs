@@ -5,7 +5,7 @@ namespace api_safezone_cs.DTOs.Ocorrencia;
 
 public record OcorrenciaResponse(
     int Id,
-    string Local,
+    Domain.Entities.Localizacao Localizacao,
     TipoOcorrencia Tipo,
     Status Status,
     Prioridade Prioridade,

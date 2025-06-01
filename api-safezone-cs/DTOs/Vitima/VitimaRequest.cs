@@ -8,5 +8,4 @@ public record VitimaRequest(
     int Idade,
     Condicao Condicao,
     Domain.Entities.Localizacao Localizacao,
-    int OcorrenciaId,
-    Domain.Entities.Ocorrencia Ocorrencia);
+    int OcorrenciaId);

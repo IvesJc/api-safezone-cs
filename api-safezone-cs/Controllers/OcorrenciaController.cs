@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api_safezone_cs.Controllers;
 
-[Route("api/ocorrencia")]
+[Route("api/[controller]")]
 [ApiController]
 public class OcorrenciaController(IOcorrenciaService ocorrenciaService) : ControllerBase
 {

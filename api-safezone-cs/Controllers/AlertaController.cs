@@ -1,13 +1,15 @@
-﻿using api_safezone_cs.DTOs.Alerta;
+﻿using api_safezone_cs.Data.AppData;
+using api_safezone_cs.DTOs.Alerta;
 using api_safezone_cs.Mapper;
+using api_safezone_cs.Repositories.Interfaces;
 using api_safezone_cs.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api_safezone_cs.Controllers;
 
-[Route("api/alerta")]
+[Route("api/[controller]")]
 [ApiController]
-public class AlertaController(IAlertaService alertaService) : ControllerBase
+public class AlertaController(IAlertaService alertaService, AppDbContext dbContext) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAlertas()

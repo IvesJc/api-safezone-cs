@@ -14,4 +14,15 @@ public class AppDbContext : DbContext
     public DbSet<Ocorrencia> Ocorrencias { get; set; }
     public DbSet<Vitima> Vitimas { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Vitima>()
+            .OwnsOne(v => v.Localizacao);        
+        modelBuilder.Entity<Ocorrencia>()
+            .OwnsOne(v => v.Localizacao);
+
+        base.OnModelCreating(modelBuilder);
+
+        base.OnModelCreating(modelBuilder);
+    }
 }

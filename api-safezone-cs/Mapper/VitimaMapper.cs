@@ -13,8 +13,7 @@ public static class VitimaMapper
             Idade: vitima.Idade,
             Condicao: vitima.Condicao,
             Localizacao: vitima.Localizacao,
-            OcorrenciaId: vitima.OcorrenciaId,
-            Ocorrencia: vitima.Ocorrencia
+            OcorrenciaId: vitima.OcorrenciaId
         );
     }
 
@@ -40,7 +39,6 @@ public static class VitimaMapper
             Condicao = vitimaRequest.Condicao,
             Localizacao = vitimaRequest.Localizacao,
             OcorrenciaId = vitimaRequest.OcorrenciaId,
-            Ocorrencia = vitimaRequest.Ocorrencia
         };
     }
     public static Vitima ToVitimaFromResponse(this VitimaResponse vitimaResponse)
