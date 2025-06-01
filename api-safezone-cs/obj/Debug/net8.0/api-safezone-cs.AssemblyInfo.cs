@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("api-safezone-cs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d810b7292e08c75c1c7cd44f3e73a451035baa9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("api-safezone-cs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("api-safezone-cs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
