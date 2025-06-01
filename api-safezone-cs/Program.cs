@@ -1,5 +1,9 @@
 using System.Text.Json.Serialization;
 using api_safezone_cs.Data.AppData;
+using api_safezone_cs.Repositories;
+using api_safezone_cs.Repositories.Interfaces;
+using api_safezone_cs.Services.Interfaces;
+using api_safezone_cs.Services.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -33,6 +37,14 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
+builder.Services.AddScoped<IAlertaRepository, AlertaRepository>();
+builder.Services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
+builder.Services.AddScoped<IVitimaRepository, VitimaRepository>();
+
+builder.Services.AddScoped<IAlertaService, AlertaService>();
+builder.Services.AddScoped<IOcorrenciaService, OcorrenciaService>();
+builder.Services.AddScoped<IVitimaService, VitimaService>();
 
 var app = builder.Build();
 
