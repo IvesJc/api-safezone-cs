@@ -17,7 +17,7 @@ public static class OcorrenciaMapper
         );
     }
 
-    public static OcorrenciaResponse ToOcorrenciaRsResponse(this Ocorrencia ocorrencia)
+    public static OcorrenciaResponse ToOcorrenciaResponse(this Ocorrencia ocorrencia)
     {
         return new OcorrenciaResponse(
             Id: ocorrencia.Id,
