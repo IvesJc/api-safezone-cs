@@ -4,7 +4,7 @@ using api_safezone_cs.Mapper;
 using api_safezone_cs.Repositories.Interfaces;
 using api_safezone_cs.Services.Interfaces;
 
-namespace api_safezone_cs.Services;
+namespace api_safezone_cs.Services.Service;
 
 public class OcorrenciaService(IOcorrenciaRepository ocorrenciaRepository) : IOcorrenciaService
 {
