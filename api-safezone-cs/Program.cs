@@ -14,7 +14,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseOracle(builder.Configuration.GetConnectionString("OracleSQLConnection"));
+    var host = Environment.GetEnvironmentVariable("ORACLE_HOST");
+    var user = Environment.GetEnvironmentVariable("ORACLE_USER");
+    var password = Environment.GetEnvironmentVariable("ORACLE_PASSWORD");
+
+    var baseConnectionString = builder.Configuration.GetConnectionString("OracleSQLConnection");
+    var connectionString = baseConnectionString
+        .Replace("{ORACLE_HOST}", host)
+        .Replace("{ORACLE_USER}", user)
+        .Replace("{ORACLE_PASSWORD}", password);
+
+    options.UseOracle(connectionString);
 });
 
 builder.Services.AddControllers()
