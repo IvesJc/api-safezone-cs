@@ -28,7 +28,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ORACLE_USER": "system",
-        "ORACLE_PASSWORD": "system"
+        "ORACLE_PASSWORD": "system",
+        "ORACLE_HOST": "dbms-safezone-001.brazilsouth.cloudapp.azure.com"
       }
     },
     "IIS Express": {

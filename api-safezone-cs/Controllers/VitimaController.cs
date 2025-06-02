@@ -1,22 +1,33 @@
 ﻿using api_safezone_cs.DTOs.Vitima;
+using api_safezone_cs.Infra.HATEOAS.VitimaHateoas;
 using api_safezone_cs.Mapper;
 using api_safezone_cs.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace api_safezone_cs.Controllers;
 
 [Route("api/[controller]")]
+[EnableRateLimiting("default")]
 [ApiController]
-public class VitimaController(IVitimaService vitimaService) : ControllerBase
+public class VitimaController(
+    IVitimaService vitimaService,
+    LinkGenerator linkGenerator,
+    IHttpContextAccessor contextAccessor) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet(Name = "GetVitimas")]
     public async Task<IActionResult> GetVitimas()
     {
         var vitimas = await vitimaService.GetAllVitimasAsync();
-        return Ok(vitimas);
+
+        var vitimasComLinks = vitimas.Select(v =>
+            VitimaHateoasBuilder.Build(v.ToVitimaResponse(), linkGenerator, contextAccessor.HttpContext!)
+        );
+
+        return Ok(vitimasComLinks);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetVitimaById")]
     public async Task<IActionResult> GetVitimaById(int id)
     {
         var vitima = await vitimaService.GetVitimaByIdAsync(id);
@@ -25,18 +36,24 @@ public class VitimaController(IVitimaService vitimaService) : ControllerBase
             return NotFound();
         }
 
-        return Ok(vitima);
+        var response = vitima.ToVitimaResponse();
+        var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
+
+        return Ok(result);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreteVitima([FromBody]VitimaRequest vitimaRequest)
+    [HttpPost(Name = "CreateVitima")]
+    public async Task<IActionResult> CreteVitima([FromBody] VitimaRequest vitimaRequest)
     {
         var vitima = await vitimaService.CreateVitimaAsync(vitimaRequest);
-        return CreatedAtAction(nameof(GetVitimaById), new { id = vitima.Id }, vitima);
+        var response = vitima.ToVitimaResponse();
+
+        var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
+        return CreatedAtRoute("GetVitimaById", new { id = response.Id }, result);
     }
-    
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateVitima(int id, [FromBody]VitimaRequest vitimaRequest)
+
+    [HttpPut("{id:int}", Name = "UpdateVitima")]
+    public async Task<IActionResult> UpdateVitima(int id, [FromBody] VitimaRequest vitimaRequest)
     {
         var vitima = await vitimaService.UpdateVitimaByAsync(id, vitimaRequest);
         if (vitima == null)
@@ -44,13 +61,16 @@ public class VitimaController(IVitimaService vitimaService) : ControllerBase
             return NotFound();
         }
 
-        return Ok(vitima.ToVitimaResponse());
-    }    
-    [HttpDelete("{id:int}")]
+        var response = vitima.ToVitimaResponse();
+        var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
+        return Ok(result);
+    }
+
+    [HttpDelete("{id:int}", Name = "DeleteVitima")]
     public async Task<IActionResult> DeleteVitima(int id)
     {
-        var vitima = await vitimaService.DeleteVitimaByAsync(id);
-        if (!vitima)
+        var sucesso = await vitimaService.DeleteVitimaByAsync(id);
+        if (!sucesso)
         {
             return NotFound();
         }

@@ -1,22 +1,33 @@
 ﻿using api_safezone_cs.DTOs.Ocorrencia;
+using api_safezone_cs.Infra.HATEOAS.OcorrenciaHateoas;
 using api_safezone_cs.Mapper;
 using api_safezone_cs.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace api_safezone_cs.Controllers;
 
 [Route("api/[controller]")]
+[EnableRateLimiting("default")]
 [ApiController]
-public class OcorrenciaController(IOcorrenciaService ocorrenciaService) : ControllerBase
+public class OcorrenciaController(
+    IOcorrenciaService ocorrenciaService,
+    LinkGenerator linkGenerator,
+    IHttpContextAccessor contextAccessor) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet(Name = "GetOcorrencias")]
     public async Task<IActionResult> GetOcorrencias()
     {
         var ocorrencias = await ocorrenciaService.GetAllOcorrenciasAsync();
-        return Ok(ocorrencias);
+
+        var ocorrenciasComLinks = ocorrencias.Select(o =>
+            OcorrenciaHateoasBuilder.Build(o.ToOcorrenciaResponse(), linkGenerator, contextAccessor.HttpContext!)
+        );
+
+        return Ok(ocorrenciasComLinks);
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int}", Name = "GetOcorrenciaById")]
     public async Task<IActionResult> GetOcorrenciaById(int id)
     {
         var ocorrencia = await ocorrenciaService.GetOcorrenciaByIdAsync(id);
@@ -25,18 +36,24 @@ public class OcorrenciaController(IOcorrenciaService ocorrenciaService) : Contro
             return NotFound();
         }
 
-        return Ok(ocorrencia);
+        var ocorrenciaResponse = ocorrencia.ToOcorrenciaResponse();
+        var result = OcorrenciaHateoasBuilder.Build(ocorrenciaResponse, linkGenerator, contextAccessor.HttpContext!);
+
+        return Ok(result);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreteOcorrencia([FromBody]OcorrenciaRequest ocorrenciaRequest)
+    [HttpPost(Name = "CreateOcorrencia")]
+    public async Task<IActionResult> CreteOcorrencia([FromBody] OcorrenciaRequest ocorrenciaRequest)
     {
         var ocorrencia = await ocorrenciaService.CreateOcorrenciaAsync(ocorrenciaRequest);
-        return CreatedAtAction(nameof(GetOcorrenciaById), new { id = ocorrencia.Id }, ocorrencia);
+        var response = ocorrencia.ToOcorrenciaResponse();
+
+        var result = OcorrenciaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
+        return CreatedAtRoute("GetOcorrenciaById", new { id = response.Id }, result);
     }
-    
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> UpdateOcorrencia(int id, [FromBody]OcorrenciaRequest ocorrenciaRequest)
+
+    [HttpPut("{id:int}", Name = "UpdateOcorrencia")]
+    public async Task<IActionResult> UpdateOcorrencia(int id, [FromBody] OcorrenciaRequest ocorrenciaRequest)
     {
         var ocorrencia = await ocorrenciaService.UpdateOcorrenciaByAsync(id, ocorrenciaRequest);
         if (ocorrencia == null)
@@ -44,13 +61,16 @@ public class OcorrenciaController(IOcorrenciaService ocorrenciaService) : Contro
             return NotFound();
         }
 
-        return Ok(ocorrencia.ToOcorrenciaResponse());
-    }    
-    [HttpDelete("{id:int}")]
+        var response = ocorrencia.ToOcorrenciaResponse();
+        var result = OcorrenciaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
+        return Ok(result);
+    }
+
+    [HttpDelete("{id:int}", Name = "DeleteOcorrencia")]
     public async Task<IActionResult> DeleteOcorrencia(int id)
     {
-        var ocorrencia = await ocorrenciaService.DeleteOcorrenciaByAsync(id);
-        if (!ocorrencia)
+        var sucesso = await ocorrenciaService.DeleteOcorrenciaByAsync(id);
+        if (!sucesso)
         {
             return NotFound();
         }
