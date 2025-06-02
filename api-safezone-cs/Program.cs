@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 using api_safezone_cs.Data.AppData;
 using api_safezone_cs.Repositories.Interfaces;
 using api_safezone_cs.Repositories.Repository;
 using api_safezone_cs.Services.Interfaces;
 using api_safezone_cs.Services.Service;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -11,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var host = Environment.GetEnvironmentVariable("ORACLE_HOST");
@@ -49,6 +51,16 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddRateLimiter(rateLimiterOptions => rateLimiterOptions 
+    .AddFixedWindowLimiter(policyName: "default", options =>
+    {
+        options.PermitLimit = 10;
+        options.Window = TimeSpan.FromMinutes(1);
+        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        options.QueueLimit = 0;
+    })
+);
+
 builder.Services.AddScoped<IAlertaRepository, AlertaRepository>();
 builder.Services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
 builder.Services.AddScoped<IVitimaRepository, VitimaRepository>();
@@ -72,5 +84,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
+app.UseRateLimiter();
 
 app.Run();
