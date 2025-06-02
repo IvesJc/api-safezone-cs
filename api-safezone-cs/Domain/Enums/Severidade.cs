@@ -2,5 +2,5 @@
 
 public enum Severidade
 {
-    Leve, Moderada, Grave, Crítica
+    Leve, Moderada, Grave, Critica
 }

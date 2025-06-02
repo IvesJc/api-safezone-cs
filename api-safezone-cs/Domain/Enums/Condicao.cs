@@ -2,7 +2,7 @@
 
 public enum Condicao
 {
-    Estável,
+    Estavel,
     Grave,
     Desaparecida
 }
