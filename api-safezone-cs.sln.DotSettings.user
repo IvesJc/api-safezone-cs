@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=7020124F_002D9FFC_002D4AC3_002D8F3D_002DAAB8E0240759_002Ff_003ALinkGenerator_002Ecs_002Fl_003A_002E_002E_003F_002E_002E_003FAppData_003FRoaming_003FJetBrains_003FRider2024_002E3_003Fresharper_002Dhost_003FDecompilerCache_003Fdecompiler_003Ff3cad29a3e764260a958b04f0608038de938_003Fe5_003F23cd4b55_003FLinkGenerator_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0edcd912_002Dadfe_002D44a3_002D901f_002D8f6016c27e1a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetVitimaById_ReturnsOk_WhenVitimaExists" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::B6EF3104-1887-4C30-820C-A5A2EA3039AB::net8.0::api_safezone_cs.Tests.Controllers.VitimaControllerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B6EF3104-1887-4C30-820C-A5A2EA3039AB::net8.0::api_safezone_cs.Tests.Controllers.AlertaControllerTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B6EF3104-1887-4C30-820C-A5A2EA3039AB::net8.0::api_safezone_cs.Tests.Controllers.OcorrenciaControllerTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
