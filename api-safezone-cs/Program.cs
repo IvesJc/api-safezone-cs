@@ -75,7 +75,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Safezone API - Adaptive Dialogs V1");
-    options.RoutePrefix = ""
+    options.RoutePrefix = "";
     options.DocumentTitle = "Safezone API - Adaptive Dialogs";
 });
 
