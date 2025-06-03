@@ -79,6 +79,32 @@ app.UseSwaggerUI(options =>
     options.DocumentTitle = "Safezone API - Adaptive Dialogs";
 });
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(errorApp =>
+    {
+        errorApp.Run(async context =>
+        {
+            context.Response.StatusCode = 500;
+            context.Response.ContentType = "application/json";
+
+            var error = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature>();
+            if (error != null)
+            {
+                var problem = new
+                {
+                    type = "https://httpstatuses.com/500",
+                    title = "An unexpected error occurred!",
+                    status = 500,
+                    detail = error.Error.Message
+                };
+
+                await context.Response.WriteAsJsonAsync(problem);
+            }
+        });
+    });
+}
+
 app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
