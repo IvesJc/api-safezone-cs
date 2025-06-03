@@ -63,7 +63,6 @@ stages:
     jobs:
       - deployment: DeployWebApp
         displayName: 'Deploy to Azure Web App'
-        environment: 'production'
         strategy:
           runOnce:
             deploy:
