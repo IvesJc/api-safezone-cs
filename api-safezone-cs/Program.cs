@@ -71,15 +71,12 @@ builder.Services.AddScoped<IVitimaService, VitimaService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "Safezone API - Adaptive Dialogs V1");
-        options.DocumentTitle = "Safezone API - Adaptive Dialogs";
-    });
-}
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Safezone API - Adaptive Dialogs V1");
+    options.DocumentTitle = "Safezone API - Adaptive Dialogs";
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
