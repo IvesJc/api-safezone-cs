@@ -61,6 +61,16 @@ builder.Services.AddRateLimiter(rateLimiterOptions => rateLimiterOptions
     })
 );
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped<IAlertaRepository, AlertaRepository>();
 builder.Services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
 builder.Services.AddScoped<IVitimaRepository, VitimaRepository>();
@@ -68,6 +78,7 @@ builder.Services.AddScoped<IVitimaRepository, VitimaRepository>();
 builder.Services.AddScoped<IAlertaService, AlertaService>();
 builder.Services.AddScoped<IOcorrenciaService, OcorrenciaService>();
 builder.Services.AddScoped<IVitimaService, VitimaService>();
+builder.Services.AddScoped<IAzureAiService, AzureAiService>();
 
 var app = builder.Build();
 
@@ -83,5 +94,6 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
 app.UseRateLimiter();
+app.UseCors("AllowAll");
 
 app.Run();
