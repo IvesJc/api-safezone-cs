@@ -11,7 +11,7 @@ public class VitimaRepository(AppDbContext dbContext) : IVitimaRepository
 {
     public async Task<List<Vitima>> GetAllVitimasAsync()
     {
-        return await dbContext.Vitimas.ToListAsync();
+        return await dbContext.Vitimas.Include(vitima => vitima.Ocorrencia).ToListAsync();
     }
 
     public async Task<Vitima?> GetVitimaByIdAsync(int id)
@@ -29,12 +29,16 @@ public class VitimaRepository(AppDbContext dbContext) : IVitimaRepository
     public async Task<Vitima?> UpdateVitimaByAsync(int id, VitimaRequest vitimaRequest)
     {
         var vitima = await dbContext.Vitimas.FirstOrDefaultAsync(v => v.Id == id);
-        if (vitima != null)
+        if (vitima == null)
         {
             return null;
         }
 
-        vitimaRequest.ToVitimaFromRequest();
+        vitima.Condicao = vitimaRequest.Condicao;
+        vitima.Idade = vitimaRequest.Idade;
+        vitima.Localizacao = vitimaRequest.Localizacao;
+        vitima.Nome = vitimaRequest.Nome;
+        vitima.OcorrenciaId = vitimaRequest.OcorrenciaId;
         await dbContext.SaveChangesAsync();
         return vitima;
     }
@@ -42,12 +46,12 @@ public class VitimaRepository(AppDbContext dbContext) : IVitimaRepository
     public async Task<Vitima?> DeleteVitimaByAsync(int id)
     {
         var vitima = await dbContext.Vitimas.FirstOrDefaultAsync(v => v.Id == id);
-        if (vitima != null)
+        if (vitima == null)
         {
             return null;
         }
 
-        dbContext.Remove(id);
+        dbContext.Remove(vitima);
         await dbContext.SaveChangesAsync();
         return vitima;
     }

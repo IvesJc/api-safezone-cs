@@ -4,7 +4,7 @@ namespace api_safezone_cs.Infra.HATEOAS.VitimaHateoas;
 
 public static class VitimaHateoasBuilder
 {
-    public static object Build(VitimaResponse dto, LinkGenerator linkGenerator, HttpContext httpContext)
+    public static object Build(VitimaResponseSemOcorrencia dto, LinkGenerator linkGenerator, HttpContext httpContext)
     {
         var links = new List<(string rel, string routeName, object? routeValues, string method)>
         {

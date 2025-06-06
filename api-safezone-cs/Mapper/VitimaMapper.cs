@@ -29,6 +29,17 @@ public static class VitimaMapper
             Ocorrencia: vitima.Ocorrencia
         );
     }
+    public static VitimaResponseSemOcorrencia ToVitimaResponseSemOcorrencia(this Vitima vitima)
+    {
+        return new VitimaResponseSemOcorrencia(
+            Id: vitima.Id,
+            Nome: vitima.Nome,
+            Idade: vitima.Idade,
+            Condicao: vitima.Condicao,
+            Localizacao: vitima.Localizacao,
+            OcorrenciaId: vitima.OcorrenciaId
+        );
+    }
 
     public static Vitima ToVitimaFromRequest(this VitimaRequest vitimaRequest)
     {

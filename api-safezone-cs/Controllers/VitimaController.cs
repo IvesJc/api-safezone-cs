@@ -21,7 +21,7 @@ public class VitimaController(
         var vitimas = await vitimaService.GetAllVitimasAsync();
 
         var vitimasComLinks = vitimas.Select(v =>
-            VitimaHateoasBuilder.Build(v.ToVitimaResponse(), linkGenerator, contextAccessor.HttpContext!)
+            VitimaHateoasBuilder.Build(v.ToVitimaResponseSemOcorrencia(), linkGenerator, contextAccessor.HttpContext!)
         );
 
         return Ok(vitimasComLinks);
@@ -36,7 +36,7 @@ public class VitimaController(
             return NotFound();
         }
 
-        var response = vitima.ToVitimaResponse();
+        var response = vitima.ToVitimaResponseSemOcorrencia();
         var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
 
         return Ok(result);
@@ -46,7 +46,7 @@ public class VitimaController(
     public async Task<IActionResult> CreteVitima([FromBody] VitimaRequest vitimaRequest)
     {
         var vitima = await vitimaService.CreateVitimaAsync(vitimaRequest);
-        var response = vitima.ToVitimaResponse();
+        var response = vitima.ToVitimaResponseSemOcorrencia();
 
         var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
         return CreatedAtRoute("GetVitimaById", new { id = response.Id }, result);
@@ -61,7 +61,7 @@ public class VitimaController(
             return NotFound();
         }
 
-        var response = vitima.ToVitimaResponse();
+        var response = vitima.ToVitimaResponseSemOcorrencia();
         var result = VitimaHateoasBuilder.Build(response, linkGenerator, contextAccessor.HttpContext!);
         return Ok(result);
     }
