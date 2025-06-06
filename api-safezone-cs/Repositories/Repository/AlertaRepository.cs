@@ -29,12 +29,16 @@ public class AlertaRepository(AppDbContext dbContext) : IAlertaRepository
     public async Task<Alerta?> UpdateAlertaByAsync(int id, AlertaRequest alertaRequest)
     {
         var alerta = await dbContext.Alertas.FirstOrDefaultAsync(a => a.Id == id);
-        if (alerta != null)
+        if (alerta == null)
         {
             return null;
         }
 
-        alertaRequest.ToAlertaFromRequest();
+        alerta.Severidade = alertaRequest.Severidade;
+        alerta.Status = alertaRequest.Status;
+        alerta.Tipo = alertaRequest.Tipo;
+        alerta.AreaAfetada = alertaRequest.AreaAfetada;
+        alerta.DataHora = alertaRequest.DataHora;
         await dbContext.SaveChangesAsync();
         return alerta;
     }
@@ -42,12 +46,12 @@ public class AlertaRepository(AppDbContext dbContext) : IAlertaRepository
     public async Task<Alerta?> DeleteAlertaByAsync(int id)
     {
         var alerta = await dbContext.Alertas.FirstOrDefaultAsync(a => a.Id == id);
-        if (alerta != null)
+        if (alerta == null)
         {
             return null;
         }
 
-        dbContext.Remove(id);
+        dbContext.Remove(alerta);
         await dbContext.SaveChangesAsync();
         return alerta;
     }

@@ -28,13 +28,17 @@ public class OcorrenciaRepository(AppDbContext dbContext) : IOcorrenciaRepositor
 
     public async Task<Ocorrencia?> UpdateOcorrenciaByAsync(int id, OcorrenciaRequest ocorrenciaRequest)
     {
-        var ocorrencia = await dbContext.Ocorrencias.FirstOrDefaultAsync(o => o.Id == id);
-        if (ocorrencia != null)
+        var ocorrencia = await dbContext.Ocorrencias.Include(ocorrencia => ocorrencia.Vitimas).FirstOrDefaultAsync(o => o.Id == id);
+        if (ocorrencia == null)
         {
             return null;
         }
 
-        ocorrenciaRequest.ToOcorrenciaFromRequest();
+        ocorrencia.Localizacao = ocorrenciaRequest.Localizacao;
+        ocorrencia.Prioridade = ocorrenciaRequest.Prioridade;
+        ocorrencia.Status = ocorrenciaRequest.Status;
+        ocorrencia.Tipo = ocorrenciaRequest.Tipo;
+        ocorrencia.DataHora = ocorrenciaRequest.DataHora;
         await dbContext.SaveChangesAsync();
         return ocorrencia;
     }
@@ -42,12 +46,12 @@ public class OcorrenciaRepository(AppDbContext dbContext) : IOcorrenciaRepositor
     public async Task<Ocorrencia?> DeleteOcorrenciaByAsync(int id)
     {
         var ocorrencia = await dbContext.Ocorrencias.FirstOrDefaultAsync(o => o.Id == id);
-        if (ocorrencia != null)
+        if (ocorrencia == null)
         {
             return null;
         }
 
-        dbContext.Remove(id);
+        dbContext.Remove(ocorrencia);
         await dbContext.SaveChangesAsync();
         return ocorrencia;
     }
