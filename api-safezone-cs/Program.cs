@@ -42,7 +42,8 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "Safezone API - Adaptive Dialogs",
         Version = "v1",
-        Description = "API desenvolvida para o projeto Safezone by Adaptive Dialogs.",
+        Description =
+            "API desenvolvida para o projeto Safezone by Adaptive Dialogs.\nIntegrantes:\nEllie de Oliveira - RM 552824\nIves Jundi Chiba - RM 553243\nNathalia Comeron Freire - RM 553233",
         License = new OpenApiLicense
         {
             Name = "MIT License",
@@ -51,7 +52,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddRateLimiter(rateLimiterOptions => rateLimiterOptions 
+builder.Services.AddRateLimiter(rateLimiterOptions => rateLimiterOptions
     .AddFixedWindowLimiter(policyName: "default", options =>
     {
         options.PermitLimit = 10;
