@@ -127,7 +127,7 @@ A SafeZone API tem como objetivo mapear e gerenciar ocorrências naturais (como 
 - Casos testados:
   - Criar/Atualizar/Deletar entidades
   - Geração de HATEOAS
-  - Validação de DTOs
+  - Validação de DTOs.
 
 ---
 
