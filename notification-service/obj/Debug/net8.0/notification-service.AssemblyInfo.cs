@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("api-safezone-cs")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("notification-service")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f3c7336199fa115f220e0874bd87c88a7af4b55")]
-[assembly: System.Reflection.AssemblyProductAttribute("api-safezone-cs")]
-[assembly: System.Reflection.AssemblyTitleAttribute("api-safezone-cs")]
+[assembly: System.Reflection.AssemblyProductAttribute("notification-service")]
+[assembly: System.Reflection.AssemblyTitleAttribute("notification-service")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.

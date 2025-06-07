@@ -3,16 +3,36 @@
 services:
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
+    container_name: api-safezone-cs
     ports:
-      - "5672:5672"     # Porta usada pelos clientes (ex: sua API)
-      - "15672:15672"   # UI do RabbitMQ (acesso via navegador)
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    networks:
-      - rabbitmq_net
 
-networks:
-  rabbitmq_net:
-    driver: bridge
+  safezone-api:
+    build:
+      context: ./safezone-api
+      dockerfile: Dockerfile
+    container_name: safezone-api
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RabbitMq__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - RabbitMq__Host=rabbitmq
+    depends_on:
+      - rabbitmq

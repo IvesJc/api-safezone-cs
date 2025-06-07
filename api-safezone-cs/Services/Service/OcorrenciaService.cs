@@ -3,10 +3,11 @@ using api_safezone_cs.DTOs.Ocorrencia;
 using api_safezone_cs.Mapper;
 using api_safezone_cs.Repositories.Interfaces;
 using api_safezone_cs.Services.Interfaces;
+using MassTransit;
 
 namespace api_safezone_cs.Services.Service;
 
-public class OcorrenciaService(IOcorrenciaRepository ocorrenciaRepository) : IOcorrenciaService
+public class OcorrenciaService(IOcorrenciaRepository ocorrenciaRepository, IBus bus) : IOcorrenciaService
 {
     public async Task<List<Ocorrencia>> GetAllOcorrenciasAsync()
     {
@@ -22,6 +23,15 @@ public class OcorrenciaService(IOcorrenciaRepository ocorrenciaRepository) : IOc
     {
         var ocorrencia = ocorrenciaRequest.ToOcorrenciaFromRequest();
         await ocorrenciaRepository.CreateOcorrenciaAsync(ocorrencia);
+        await bus.Publish(new OcorrenciaResponse(
+            Id: ocorrencia.Id,
+            Localizacao: ocorrencia.Localizacao,
+            Tipo: ocorrencia.Tipo,
+            Status: ocorrencia.Status,
+            Prioridade: ocorrencia.Prioridade,
+            DataHora: ocorrencia.DataHora,
+            Vitimas: ocorrencia.Vitimas.Select(vitima => vitima.ToVitimaResponse()).ToList())
+        );
         return ocorrencia;
     }
 

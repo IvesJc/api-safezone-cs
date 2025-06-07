@@ -202,3 +202,7 @@ C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\zh
 C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
 C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\MassTransit.dll
+C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\MassTransit.Abstractions.dll
+C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\MassTransit.RabbitMqTransport.dll
+C:\Users\ivesj\RiderProjects\api-safezone-cs\api-safezone-cs\bin\Debug\net8.0\RabbitMQ.Client.dll
