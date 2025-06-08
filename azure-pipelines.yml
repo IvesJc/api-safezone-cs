@@ -77,4 +77,4 @@ stages:
               azureSubscription: '$(azureSubscription)'
               appType: 'webApp'
               appName: '$(appName)'
-              package: '$(System.ArtifactsDirectory)/app/**/*.zip'
+              package: '$(System.ArtifactsDirectory)/app/**/api-safezone-cs.zip'
