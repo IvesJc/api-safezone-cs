@@ -54,7 +54,7 @@ stages:
             displayName: 'Publish build artifacts'
             inputs:
               PathtoPublish: '$(webAppPackagePath)'
-              ArtifactName: 'drop'
+              ArtifactName: 'app'
               publishLocation: 'Container'
 
   - stage: Deploy
@@ -68,7 +68,7 @@ stages:
             inputs:
               buildType: 'current'
               downloadType: 'single'
-              artifactName: 'drop'
+              artifactName: 'app'
               downloadPath: '$(System.ArtifactsDirectory)'
 
           - task: AzureWebApp@1
