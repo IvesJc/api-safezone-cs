@@ -33,20 +33,20 @@ stages:
             displayName: 'Restore NuGet packages'
             inputs:
               command: 'restore'
-              projects: 'api-safezone-cs/*.csproj'
+              projects: 'api-safezone-cs/api-safezone-cs.csproj'
 
           - task: DotNetCoreCLI@2
             displayName: 'Build project'
             inputs:
               command: 'build'
-              projects: 'api-safezone-cs/*.csproj'
+              projects: 'api-safezone-cs/api-safezone-cs.csproj'
               arguments: '--configuration $(buildConfiguration)'
 
           - task: DotNetCoreCLI@2
             displayName: 'Publish app'
             inputs:
               command: 'publish'
-              projects: 'api-safezone-cs/*.csproj'
+              projects: 'api-safezone-cs/api-safezone-cs.csproj'
               arguments: '--configuration $(buildConfiguration) --output $(webAppPackagePath)'
               zipAfterPublish: true
 
